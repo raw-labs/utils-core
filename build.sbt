@@ -119,32 +119,30 @@ lazy val strictBuildSettings = commonSettings ++ compileSettings ++ buildSetting
 )
 
 lazy val root = (project in file("."))
+  .doPatchDependencies() // Patch Scala dependencies to ensure their names are JPMS-friendly.
   .settings(
     name := "utils-core",
     strictBuildSettings,
     publishSettings,
     libraryDependencies ++= Seq(
-      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5-rawlabs",
-      "com.typesafe" % "config" % "1.4.2",
+      // Logging
+      "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
       "ch.qos.logback" % "logback-classic" % "1.4.12",
-      "com.google.guava" % "guava" % "32.1.3-jre",
-      "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2", // Required while we are on Scala 2.12. It's built into Scala 2.13.
-      "com.github.loki4j" % "loki-logback-appender" % "1.4.2",
-      "commons-io" % "commons-io" % "2.11.0",
-      "org.apache.commons" % "commons-text" % "1.11.0",
       "org.slf4j" % "slf4j-api" % "2.0.5",
       "org.slf4j" % "log4j-over-slf4j" % "2.0.5",
       "org.slf4j" % "jcl-over-slf4j" % "2.0.5",
       "org.slf4j" % "jul-to-slf4j" % "2.0.5",
-      "com.fasterxml.jackson.core" % "jackson-core" % "2.15.2",
-      "com.fasterxml.jackson.core" % "jackson-databind" % "2.15.2",
-      "com.fasterxml.jackson.datatype" % "jackson-datatype-jsr310" % "2.15.2",
-      "com.fasterxml.jackson.datatype" % "jackson-datatype-jdk8" % "2.15.2",
-      "com.fasterxml.jackson.datatype" % "jackson-datatype-joda" % "2.15.2",
-      "com.fasterxml.jackson.dataformat" % "jackson-dataformat-cbor" % "2.15.2",
-      "com.fasterxml.jackson.dataformat" % "jackson-dataformat-csv" % "2.15.2",
-      "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % "2.15.2",
-      "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.15.2-rawlabs",
+      "com.github.loki4j" % "loki-logback-appender" % "1.4.2",
+      // Configuration
+      "com.typesafe" % "config" % "1.4.2",
+      // Utilities
+      "com.google.guava" % "guava" % "32.1.3-jre",
+      "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2", 
+      "commons-io" % "commons-io" % "2.11.0",
+      "org.apache.commons" % "commons-text" % "1.11.0",
+      // Required while we are on Scala 2.12.
+      "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
+      // Testing
       "org.scalatest" %% "scalatest" % "3.2.16" % Test
     )
   )

@@ -12,21 +12,15 @@
 
 module raw.utils.core {
   requires scala.library;
-  requires com.fasterxml.jackson.core;
-  requires com.fasterxml.jackson.databind;
-  requires com.fasterxml.jackson.dataformat.csv;
-  requires com.fasterxml.jackson.scala;
+  requires scala.logging;
+  requires ch.qos.logback.classic;
+  requires org.slf4j;
+  requires jul.to.slf4j;
+  requires typesafe.config;
   requires org.apache.commons.io;
   requires org.apache.commons.text;
-  requires typesafe.config;
-  requires typesafe.scalalogging;
-  requires org.slf4j;
-  requires ch.qos.logback.classic;
   requires com.google.common;
-  requires jul.to.slf4j;
 
   exports com.rawlabs.utils.core;
 
-  opens com.rawlabs.utils.core to
-      com.fasterxml.jackson.databind;
 }
