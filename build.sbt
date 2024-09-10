@@ -108,7 +108,8 @@ lazy val publishSettings = Seq(
   versionScheme := Some("early-semver"),
   publish / skip := false,
   publishMavenStyle := true,
-  publishTo := Some("GitHub raw-labs Apache Maven Packages" at "https://maven.pkg.github.com/raw-labs/utils-core"),
+  // Temporarily publishing to the Snapi repo until the migration is finished...
+  publishTo := Some("GitHub raw-labs Apache Maven Packages" at "https://maven.pkg.github.com/raw-labs/snapi"),
   publishConfiguration := publishConfiguration.value.withOverwrite(isCI)
 )
 
