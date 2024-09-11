@@ -12,8 +12,6 @@
 
 package com.rawlabs.utils.core
 
-import com.typesafe.scalalogging.StrictLogging
-
 import java.lang.management.ManagementFactory
 import javax.management.ObjectName
 import scala.util.control.NonFatal
@@ -31,7 +29,7 @@ trait RawMBean {
   def getMBeanName: String
 }
 
-object RawMBeansManager extends StrictLogging {
+object RawMBeansManager {
 
   private val mbs = ManagementFactory.getPlatformMBeanServer
   private var mbeanMap = Map.empty[String, RawMBean]
@@ -46,9 +44,7 @@ object RawMBeansManager extends StrictLogging {
     require(mbean != null, "MBean cannot be null")
     require(mbean.getMBeanName != null, "MBean name cannot be null")
     mbeanLock.synchronized {
-      if (mbs.isRegistered(new ObjectName(mbean.getMBeanName))) {
-        logger.warn(s"MBean ${mbean.getMBeanName} already registered")
-      } else {
+      if (!mbs.isRegistered(new ObjectName(mbean.getMBeanName))) {
         val objectName = new ObjectName(mbean.getMBeanName)
         mbs.registerMBean(mbean, objectName)
         mbeanMap += (mbean.getMBeanName -> mbean)
@@ -68,8 +64,6 @@ object RawMBeansManager extends StrictLogging {
       if (mbs.isRegistered(objectName)) {
         mbs.unregisterMBean(objectName)
         mbeanMap -= name
-      } else {
-        logger.warn(s"MBean $name is not registered")
       }
     }
   }

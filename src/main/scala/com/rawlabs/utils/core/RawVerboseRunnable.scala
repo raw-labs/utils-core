@@ -12,7 +12,7 @@
 
 package com.rawlabs.utils.core
 
-import com.typesafe.scalalogging.StrictLogging
+import com.typesafe.scalalogging.Logger
 
 /**
  * Wraps a Runnable to log any uncaught exceptions.
@@ -28,7 +28,7 @@ import com.typesafe.scalalogging.StrictLogging
  * @param delegate The runnable to wrap.
  * @param propagate Whether to rethrow the exception.
  */
-class RawVerboseRunnable(delegate: Runnable, propagate: Boolean = false) extends Runnable with StrictLogging {
+class RawVerboseRunnable(logger: Logger, delegate: Runnable, propagate: Boolean = false) extends Runnable {
   override def run(): Unit = {
     try {
       delegate.run()
