@@ -27,10 +27,7 @@ lazy val commonSettings = Seq(
   headerSources / excludeFilter := HiddenFileFilter,
   // Use cached resolution of dependencies
   // http://www.scala-sbt.org/0.13/docs/Cached-Resolution.html
-  updateOptions := updateOptions.in(Global).value.withCachedResolution(true),
-  resolvers ++= Seq(Resolver.mavenLocal),
-  resolvers ++= Resolver.sonatypeOssRepos("snapshots"),
-  resolvers ++= Resolver.sonatypeOssRepos("releases")
+  updateOptions := updateOptions.in(Global).value.withCachedResolution(true)
 )
 
 lazy val buildSettings = Seq(
@@ -138,7 +135,7 @@ lazy val root = (project in file("."))
       "com.typesafe" % "config" % "1.4.2",
       // Utilities
       "com.google.guava" % "guava" % "32.1.3-jre",
-      "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2", 
+      "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
       "commons-io" % "commons-io" % "2.11.0",
       "org.apache.commons" % "commons-text" % "1.11.0",
       // Required while we are on Scala 2.12.
