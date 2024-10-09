@@ -132,7 +132,7 @@ lazy val root = (project in file("."))
       "org.slf4j" % "jul-to-slf4j" % "2.0.5",
       "com.github.loki4j" % "loki-logback-appender" % "1.4.2",
       // Configuration
-      "com.typesafe" % "config" % "1.4.2",
+      "com.typesafe" % "config" % "1.4.3",
       // Utilities
       "com.google.guava" % "guava" % "32.1.3-jre",
       "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
