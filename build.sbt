@@ -134,7 +134,7 @@ lazy val root = (project in file("."))
       // Configuration
       "com.typesafe" % "config" % "1.4.2",
       // Utilities
-      "com.google.guava" % "guava" % "32.1.3-jre",
+      "com.google.guava" % "guava" % "33.3.1-jre",
       "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
       "commons-io" % "commons-io" % "2.11.0",
       "org.apache.commons" % "commons-text" % "1.11.0",
