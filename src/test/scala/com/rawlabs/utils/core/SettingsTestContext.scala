@@ -13,14 +13,16 @@
 package com.rawlabs.utils.core
 
 import com.typesafe.config.ConfigFactory
+import com.typesafe.scalalogging.StrictLogging
 
 import scala.collection.JavaConverters._
 import scala.collection.mutable
 
-trait SettingsTestContext {
+trait SettingsTestContext extends StrictLogging {
   protected var properties: mutable.Map[String, Any] = mutable.Map[String, Any]()
 
   implicit def settings: RawSettings = new RawSettings(
+    logger,
     ConfigFactory.load(),
     ConfigFactory.parseMap(properties.asJava)
   )

@@ -13,7 +13,7 @@
 package com.rawlabs.utils.core
 
 import com.typesafe.config._
-import com.typesafe.scalalogging.StrictLogging
+import com.typesafe.scalalogging.Logger
 
 import java.time.Duration
 import java.util.concurrent.TimeUnit
@@ -30,9 +30,10 @@ object RawSettings {
 }
 
 class RawSettings(
+    logger: Logger,
     protected val lowPriorityConfig: Config = ConfigFactory.load(),
     protected val highPriorityConfig: Config = ConfigFactory.empty()
-) extends StrictLogging {
+) {
 
   import RawSettings._
 
@@ -54,8 +55,9 @@ class RawSettings(
     }
   }
 
-  def this(renderAsString: String) = {
+  def this(logger: Logger, renderAsString: String) = {
     this(
+      logger,
       try {
         ConfigFactory.parseString(renderAsString)
       } catch {
@@ -105,22 +107,23 @@ class RawSettings(
       .withFallback(moduleConfig)
       .withFallback(ConfigFactory.defaultReference())
       .resolve()
-    new RawSettings(config, highPriorityConfig)
+    new RawSettings(logger, config, highPriorityConfig)
   }
 
   def withFallback(settings: RawSettings): RawSettings = {
     new RawSettings(
+      logger,
       lowPriorityConfig.withFallback(settings.lowPriorityConfig),
       highPriorityConfig.withFallback(settings.highPriorityConfig)
     )
   }
 
   def cloneWith(settings: Map[String, Any]): RawSettings = {
-    new RawSettings(lowPriorityConfig, ConfigFactory.parseMap(settings.asJava).withFallback(highPriorityConfig))
+    new RawSettings(logger, lowPriorityConfig, ConfigFactory.parseMap(settings.asJava).withFallback(highPriorityConfig))
   }
 
   def cloneWith(settings: String): RawSettings = {
-    new RawSettings(lowPriorityConfig, ConfigFactory.parseString(settings).withFallback(highPriorityConfig))
+    new RawSettings(logger, lowPriorityConfig, ConfigFactory.parseString(settings).withFallback(highPriorityConfig))
   }
 
   def cloneWith(settings: (String, Any)*): RawSettings = {

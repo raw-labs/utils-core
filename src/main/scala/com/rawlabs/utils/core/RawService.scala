@@ -12,7 +12,7 @@
 
 package com.rawlabs.utils.core
 
-import com.typesafe.scalalogging.StrictLogging
+import com.typesafe.scalalogging.Logger
 
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.atomic.AtomicBoolean
@@ -39,10 +39,12 @@ object RawService {
  *
  * Used for services (aka. components/modules) that may require centralized stopping.
  */
-trait RawService extends StrictLogging {
+trait RawService {
 
   import RawService._
   protected val stopped = new AtomicBoolean(false)
+
+  protected def logger: Logger
 
   logger.debug(s"Adding service: $this")
   services.add(this)

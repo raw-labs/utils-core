@@ -14,7 +14,7 @@ package com.rawlabs.utils.core
 
 import com.google.common.io.Resources
 import com.google.common.util.concurrent.ThreadFactoryBuilder
-import com.typesafe.scalalogging.StrictLogging
+import com.typesafe.scalalogging.Logger
 import org.apache.commons.io.FileUtils
 
 import java.io.{ByteArrayOutputStream, InputStream}
@@ -31,11 +31,8 @@ import org.apache.commons.text.StringEscapeUtils
 
 /**
  * "Random" collection of utility methods.
- *
- * NOTE that this classes uses the `StrictLogging` trait from the `com.typesafe.scalalogging` package.
- * TODO (msb): Remove StrictLogging and make logger a parameter where needed.
  */
-object RawUtils extends StrictLogging {
+object RawUtils {
 
   /**
    * Convert a user string back to its original "intended" representation.
@@ -71,12 +68,14 @@ object RawUtils extends StrictLogging {
     )
   }
 
-  def newThreadFactory(name: String, daemon: Boolean = true): ThreadFactory = {
+  def newThreadFactory(name: String, maybeLogger: Option[Logger] = None, daemon: Boolean = true): ThreadFactory = {
     new ThreadFactoryBuilder()
       .setNameFormat(s"$name-%d")
-      .setUncaughtExceptionHandler((t: Thread, e: Throwable) => {
-        logger.warn(s"Uncaught exception on thread: ${t.getName}", e)
-      })
+      .setUncaughtExceptionHandler {
+        case (t: Thread, e: Throwable) => {
+          maybeLogger.foreach(_.warn(s"Uncaught exception on thread: ${t.getName}", e))
+        }
+      }
       .setDaemon(daemon)
       .build()
   }
@@ -105,26 +104,22 @@ object RawUtils extends StrictLogging {
     System.getProperty("os.name").toLowerCase().contains("mac os x")
   }
 
-  def withSuppressNonFatalException(f: => Unit, silent: Boolean = false): Unit = {
+  def withSuppressNonFatalException(f: => Unit, maybeLogger: Option[Logger] = None): Unit = {
     if (Thread.interrupted()) {
       throw new InterruptedException()
     }
     try {
       f
     } catch {
-      case NonFatal(t) => if (!silent) {
-          logger.warn("Suppressing uncaught exception: ", t)
-        }
+      case NonFatal(t) => maybeLogger.foreach(_.warn("Suppressing uncaught exception: ", t))
     }
   }
 
-  def withSuppressNonFatalExceptionUninterruptible(f: => Unit, silent: Boolean = false): Unit = {
+  def withSuppressNonFatalExceptionUninterruptible(f: => Unit, maybeLogger: Option[Logger] = None): Unit = {
     try {
       f
     } catch {
-      case NonFatal(t) => if (!silent) {
-          logger.warn("Suppressing uncaught exception: ", t)
-        }
+      case NonFatal(t) => maybeLogger.foreach(_.warn("Suppressing uncaught exception: ", t))
     }
   }
 
@@ -144,10 +139,7 @@ object RawUtils extends StrictLogging {
 
   def deleteTestFile(file: Path): Unit = {
     withSuppressNonFatalException {
-      val deleted = Files.deleteIfExists(file)
-      if (!deleted) {
-        logger.warn(s"Could not delete test file: $file")
-      }
+      Files.deleteIfExists(file)
     }
   }
 
