@@ -126,10 +126,10 @@ lazy val root = (project in file("."))
       // Logging
       "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
       "ch.qos.logback" % "logback-classic" % "1.4.12",
-      "org.slf4j" % "slf4j-api" % "2.0.5",
-      "org.slf4j" % "log4j-over-slf4j" % "2.0.5",
-      "org.slf4j" % "jcl-over-slf4j" % "2.0.5",
-      "org.slf4j" % "jul-to-slf4j" % "2.0.5",
+      "org.slf4j" % "slf4j-api" % "2.0.16",
+      "org.slf4j" % "log4j-over-slf4j" % "2.0.16",
+      "org.slf4j" % "jcl-over-slf4j" % "2.0.16",
+      "org.slf4j" % "jul-to-slf4j" % "2.0.16",
       "com.github.loki4j" % "loki-logback-appender" % "1.4.2",
       // Configuration
       "com.typesafe" % "config" % "1.4.2",
