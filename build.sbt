@@ -130,7 +130,7 @@ lazy val root = (project in file("."))
       "org.slf4j" % "log4j-over-slf4j" % "2.0.5",
       "org.slf4j" % "jcl-over-slf4j" % "2.0.5",
       "org.slf4j" % "jul-to-slf4j" % "2.0.5",
-      "com.github.loki4j" % "loki-logback-appender" % "1.4.2",
+      "com.github.loki4j" % "loki-logback-appender" % "1.5.2",
       // Configuration
       "com.typesafe" % "config" % "1.4.2",
       // Utilities
