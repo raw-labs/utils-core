@@ -141,6 +141,6 @@ lazy val root = (project in file("."))
       // Required while we are on Scala 2.12.
       "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
       // Testing
-      "org.scalatest" %% "scalatest" % "3.2.16" % Test
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test
     )
   )
