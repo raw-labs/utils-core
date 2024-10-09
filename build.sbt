@@ -137,7 +137,7 @@ lazy val root = (project in file("."))
       "com.google.guava" % "guava" % "32.1.3-jre",
       "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
       "commons-io" % "commons-io" % "2.11.0",
-      "org.apache.commons" % "commons-text" % "1.11.0",
+      "org.apache.commons" % "commons-text" % "1.12.0",
       // Required while we are on Scala 2.12.
       "org.scala-lang.modules" %% "scala-java8-compat" % "1.0.2",
       // Testing
