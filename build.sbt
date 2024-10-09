@@ -31,7 +31,7 @@ lazy val commonSettings = Seq(
 )
 
 lazy val buildSettings = Seq(
-  scalaVersion := "2.12.18",
+  scalaVersion := "2.12.20",
   isSnapshot := !isRelease,
   javacOptions ++= Seq(
     "-source",
