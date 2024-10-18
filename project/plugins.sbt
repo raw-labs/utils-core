@@ -24,3 +24,5 @@ ThisBuild / credentials += Credentials(
 )
 
 addSbtPlugin("com.raw-labs" % "sbt-module-patcher" % "0.1.2")
+
+addSbtPlugin("com.raw-labs" % "sbt-versioner" % "0.1.0")
